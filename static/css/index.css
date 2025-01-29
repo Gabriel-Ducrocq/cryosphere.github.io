@@ -2,20 +2,10 @@ body {
   font-family: 'Noto Sans', sans-serif;
 }
 
-.container_test {
- display: grid;
- align-items: center; 
- grid-template-columns: 1fr 1fr 1fr;
- column-gap: 5px;
-}
-
-img_test {
-  max-width: 50%;
-  max-height:50%;
-}
-
-.text_test {
-  font-size: 10px;
+.list_view
+{
+display:flex;
+align-items:center;
 }
 
 .footer .icon-link {
