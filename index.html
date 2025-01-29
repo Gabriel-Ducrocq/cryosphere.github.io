@@ -233,7 +233,7 @@
         <h2 class="title is-3"> How does cryoSPHERE works ?</h2>
         <div class="content has-text-justified">
           <p>
-            CryoSPHERE takes the number of segments N used to cut the protein. During a forward pass, two steps happen concurrently:
+            CryoSPHERE takes the number of segments N used to cut the protein as a hyperparameter. During a forward pass, two steps happen concurrently:
            <ul>
               <li>An encoder maps the image to a distribution over a latent space. A latent variable is sampled and the decoder maps it to N rotations and N translations, that is, one rotation and translation per segment.</li>
               <li>The parameters a Gaussian mixture with N modes over the line supporting the residue indexes are used to compute the probability of each residue to belong to each segment.</li>
@@ -253,6 +253,27 @@
 <!-- End how does cryoSPHERE works ? -->
 
 
+<!-- Results -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3"> Results </h2>
+        <div class="content has-text-justified">
+          <p>
+            cryoSPHERE outputs, for each image:
+           <ul>
+              <li>A latent distribution associated with that image.</li>
+              <li>The nominal structure deformed to match that image.</li>
+              <li>The segmentation of protein. This segmentation is shared accross all the images.</li>
+          </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Results -->
+
+
 <!-- Image carousel -->
 <section class="hero is-small">
   <div class="hero-body">
@@ -260,9 +281,9 @@
       <div id="results-carousel" class="carousel results-carousel">
        <div class="item">
         <!-- Your image here -->
-        <img src="static/images/carousel1.jpg" alt="MY ALT TEXT"/>
+        <img src="static/images/10_domains.png" alt="MY ALT TEXT"/>
         <h2 class="subtitle has-text-centered">
-          First image description.
+          Segmentation
         </h2>
       </div>
       <div class="item">
