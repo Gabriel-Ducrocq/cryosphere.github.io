@@ -2,6 +2,12 @@ body {
   font-family: 'Noto Sans', sans-serif;
 }
 
+
+.test{
+    display:block;
+    width:100%;
+}
+
 .list_view
 {
 display:flex;
