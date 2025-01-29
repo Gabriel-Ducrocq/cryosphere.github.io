@@ -194,7 +194,7 @@
 
 
 
-<!-- CryoEM description -->
+<!-- cryoSPHERE motivation -->
 <section class="section hero is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
@@ -212,7 +212,7 @@
           develop a variational auto-encoder (VAE) that, from a nominal structure
           and a set of cryo-EM images:
           <ul>
-          <li> Learns how to divide the amino-acid chain into segments, given a user defined maximum number of segments; see Figure 2. The nominal structure can for instance be obtained by AlphaFold. </li>
+          <li> Learns how to divide the amino-acid chain into segments, given a user defined maximum number of segments. The nominal structure can for instance be obtained by AlphaFold. </li>
           <li> For each image, learns approximately rigid transformations of the identified segments of the nominal structure, which effectively allows us to recover different conformations on an image-by-image basis. </li>
           </ul>
             These two steps happen concurrently, and the model is end-to-end differentiable.
@@ -222,8 +222,35 @@
     </div>
   </div>
 </section>
-<!-- End CryoEM description -->
+<!-- End cryoSPHERE motivation -->
 
+
+<!-- how does cryoSPHERE works ?-->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3"> How does cryoSPHERE works ?</h2>
+        <div class="content has-text-justified">
+          <p>
+            CryoSPHERE takes the number of segments N used to cut the protein. During a forward pass, two steps happen concurrently:
+           <ul>
+              <li>An encoder maps the image to a distribution over a latent space. A latent variable is sampled and the decoder maps it to N rotations and N translations, that is, one rotation and translation per segment.</li>
+              <li>The parameters a Gaussian mixture with N modes over the line supporting the residue indexes are used to compute the probability of each residue to belong to each segment.</li>
+          </ul>
+          Each residue position in the nominal structure is then rotated and translated according to the transformation of each segment, where these transformations are weighted by how much the residue belongs to each segment. This way, the transformation of the protein is locally rigid. The transformed nominal structure is then turned into a volume and projected into an image, that is compared to the true image. Finally, the backward pass is performed.
+        </div>
+        <div style="display: inline-block; vertical-align: middle; width: 50%;">
+        <img src="static/images/VAEFlow3.png" alt="VAEFLOW"/>
+          <h2 class="subtitle has-text-centered">
+          Depiction of cryoSPHERE variational auto-encoding architecture: an image is encoded to a latent variable, that is decoded into one transformation per segment. Based on the Gaussian mixture model for the segmentation, this transformation per segment is mapped to a transformation per residue. The nominal structure is deformed and projected into an image, compared to the input image.
+        </h2>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End how does cryoSPHERE works ? -->
 
 
 <!-- Image carousel -->
