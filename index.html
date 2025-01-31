@@ -228,17 +228,17 @@
         <h2 class="title is-3">Why cryoSPHERE ?</h2>
         <div class="content has-text-justified">
           <p>
-          Traditional methods reconstruct a volume of the protein, typically in Fourier space. Framing the problem this way has two shortcomings that makes this method susceptible to the low SNR:
+          Traditional methods reconstruct a volume of the protein, typically in Fourier space. Framing the problem this way has two shortcomings that make these methods susceptible to the low SNR:
            <ul>
-              <li>It disregards prior information about the protein: we may already have a good idea of its structure, obtained through previous experiments such as Xray crytallography or using AlphaFold.</li>
-              <li>The motion of the protein is restricted by the laws of physics. Using such constraints is difficult for volume methods.</li>
+              <li>It disregards prior information about the protein: we may already have a good idea of its structure, obtained through previous experiments such as Xray crystallography or using AlphaFold.</li>
+              <li>The motion of the protein is restricted by the laws of physics. Integrating such constraints is difficult for volume methods.</li>
           </ul>
           To remedy this, we root cryoSPHERE in the observation that different conformations can often be
           explained by large scale movements of domains of the protein. Specifically, we
           develop a variational auto-encoder (VAE) that, from a nominal structure
           and a set of cryo-EM images:
           <ul>
-          <li> Learns how to divide the amino-acid chain into segments, given a user defined maximum number of segments. The nominal structure can for instance be obtained by AlphaFold. </li>
+          <li> Learns how to divide the amino-acid chain into segments, given a user defined maximum number of segments. The nominal structure can for instance be obtained using AlphaFold. </li>
           <li> For each image, learns approximately rigid transformations of the identified segments of the nominal structure, which effectively allows us to recover different conformations on an image-by-image basis. </li>
           </ul>
             These two steps happen concurrently, and the model is end-to-end differentiable.
@@ -261,7 +261,7 @@
           Formulating the problem this way has a number of advantages:
           <ul>
             <li><div>Efficiency in deformation: Deforming a base structure into a density map avoids the computationally expensive Npix^2 pix evaluation required by a decoder neural network in methods implicitly parameterising the grid. Furthermore, direct deformation of a structure directly avoids the need for subsequent fitting into the recovered density map.</div></li>
-            <li>Reduced Dimensionality and Noise Resilience: learning a transformation per segment is a lower dimensional problem than a transformation per residue. In addition, it corresponds to lower frequency movements that are less polluted by noise.</li>
+            <li>Reduced dimensionality and noise resilience: learning a transformation per segment is a lower dimensional problem than a transformation per residue. In addition, it corresponds to lower frequency movements that are less polluted by noise.</li>
             <li>Interpretability: CryoSPHERE outputs segments along with one rotation and one translation per segment, providing valuable and interpretable information.</li>
           </ul>
         </div>
@@ -286,9 +286,9 @@
             CryoSPHERE takes the number of segments N used to cut the protein as a hyperparameter. During a forward pass, two steps happen concurrently:
            <ul>
               <li>An encoder maps the image to a distribution over a latent space. A latent variable is sampled and the decoder maps it to N rotations and N translations, that is, one rotation and translation per segment.</li>
-              <li>The parameters a Gaussian mixture with N modes over the line supporting the residue indexes are used to compute the probability of each residue to belong to each segment.</li>
+              <li>A Gaussian mixture with N modes over the line supporting the residue indexes is used to compute the probability of each residue to belong to each segment.</li>
           </ul>
-          Each residue position in the nominal structure is then rotated and translated according to the transformation of each segment, where these transformations are weighted by how much the residue belongs to each segment. This way, the transformation of the protein is locally rigid. The transformed nominal structure is then turned into a volume and projected into an image, that is compared to the true image. Finally, the backward pass is performed.
+          Each residue position in the nominal structure is then rotated and translated according to the transformation of each segment, where these transformations are weighted by how much the residue belongs to each segment. This way, the transformation of the protein is locally rigid. The transformed nominal structure is then turned into a volume and projected into an image, that is compared to the true image. Finally, during the forward pass, the parameters of the encoder, decoder and Gaussian mixture are updated.
         </div>
       </div>
     </div>
@@ -330,7 +330,7 @@
         <!-- Your image here -->
         <img src="static/images/phy_dataset.png" alt="MY ALT TEXT" style="display: block; margin: auto;"/>
         <h2 class="subtitle has-text-centered">
-          Results on a toy datasets: 10 000 structures were generated with molecular dynamics for molecule of 1006 residues. Out of these, 150 000 images were created. The leftmost structure is the nominal structure, generated by AlphaFold, with the segmentation recovered by cryoSPHERE. From middle right to rightmost: examples of predicted structures (in blue) with the corresponding ground truth structure (in green) for three images taken in the dataset.
+          Results on a toy datasets: 10 000 structures were generated with molecular dynamics for a protein of 1006 residues. Out of these, 150 000 images were created. The leftmost structure is the nominal structure, generated by AlphaFold, with the segmentation recovered by cryoSPHERE. From middle right to rightmost: examples of predicted structures (in blue) with the corresponding ground truth structure (in green) for three images taken in the dataset.
         </h2>
       </div>
       <div class="item">
