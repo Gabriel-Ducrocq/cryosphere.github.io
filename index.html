@@ -166,30 +166,6 @@
               <li>The protein might have different conformations on different images.</li>
           </ul>
           </p>
-      </div>
-        <div id="results-carousel" class="carousel results-carousel">
-       <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/cryoEMAcquisition.jpeg" alt="MY ALT TEXT" height="10" />
-        <h2 class="subtitle has-text-centered">
-          Results on a toy datasets:
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/micrographResized.png" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-          Example of micrograph obtained after using the cryogenic electron microscope.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/exampleImage.png" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-          Example of image extracted from the micrograph.
-        </h2>
-      </div>
-  </div>
     </div>
       </div>
     </div>
@@ -256,6 +232,12 @@
           </ul>
             These two steps happen concurrently, and the model is end-to-end differentiable.
           </p>
+          Formulating the problem this way has a number of advantages:
+          <ul>
+            <li><div>Efficiency in deformation: Deforming a base structure into a density map avoids the computationally expensive Npix^2 pix evaluation required by a decoder neural network in methods implicitly parameterising the grid. Furthermore, direct deformation of a structure directly avoids the need for subsequent fitting into the recovered density map.</div></li>
+            <li>Reduced Dimensionality and Noise Resilience: learning a transformation per segment is a lower dimensional problem than a transformation per residue. In addition, it corresponds to lower frequency movements that are less polluted by noise.</li>
+            <li>Interpretability: CryoSPHERE outputs segments along with one rotation and one translation per segment, providing valuable and interpretable information.</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -279,7 +261,7 @@
           </ul>
           Each residue position in the nominal structure is then rotated and translated according to the transformation of each segment, where these transformations are weighted by how much the residue belongs to each segment. This way, the transformation of the protein is locally rigid. The transformed nominal structure is then turned into a volume and projected into an image, that is compared to the true image. Finally, the backward pass is performed.
         </div>
-        <div style="display: inline-block; vertical-align: middle; width: 50%;">
+        <div style="display: inline-block; vertical-align: middle; width: 100%;">
         <img src="static/images/VAEFlow3.png" alt="VAEFLOW"/>
           <h2 class="subtitle has-text-centered">
           Depiction of cryoSPHERE variational auto-encoding architecture.
@@ -290,7 +272,6 @@
   </div>
 </section>
 <!-- End how does cryoSPHERE works ? -->
-
 
 <!-- Results -->
 <section class="section hero is-light">
@@ -306,6 +287,8 @@
               <li>The nominal structure deformed to match that image.</li>
               <li>The segmentation of the protein. This segmentation is shared accross all the images.</li>
           </ul>
+        </p>
+        <p>One can make a PCA of the latent space recovered by cryoSPHERE and create structures corresponding to each of the principal component traversal. This provides a direct interpretation of motion recovered by cryoSPHERE.</p>
       </div>
     </div>
   </div>
@@ -317,6 +300,9 @@
   <div class="hero-body">
     <div class="container">
       <div id="results-carousel" class="carousel results-carousel">
+        <h2 class="subtitle has-text-centered">
+          We can plot structures recovered by cryoSPHERE to interpret the motion or compare it to the ground truth on toy datasets:
+        </h2>
        <div class="item">
         <!-- Your image here -->
         <img src="static/images/phy_dataset.png" alt="MY ALT TEXT" style="display: block; margin: auto;"/>
@@ -345,6 +331,9 @@
     <div class="container">
       <!-- Paper video. -->
       <div class="columns is-centered has-text-centered">
+        <h2 class="subtitle has-text-centered">
+          For visualization purposes, we can also create movies of the motion corresponding to principal components traveral:
+        </h2>
         <div class="column is-four-fifths">
           
           <div class="publication-video">
@@ -363,9 +352,10 @@
 <!-- Paper poster -->
 <section class="hero is-small is-light">
   <div class="hero-body">
+    <h2 class="subtitle has-text-centered">
+          This poster has been presented at the GenLife 2024 conference in Copenhagen and the WASP conference in September 2024 in Gothenburg
+    </h2>
     <div class="container">
-      <h2 class="title">Poster</h2>
-
       <iframe  src="static/pdfs/GenLifePoster.pdf" width="100%" height="550">
           </iframe>
         
