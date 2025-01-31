@@ -95,6 +95,17 @@
                     </a>
                   </span>
 
+                    <!-- Supplementary PDF link -->
+                    <span class="link-block">
+                      <a href="static/pdfs/GenLifePoster.pdf" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>poster</span>
+                    </a>
+                  </span>
+
                   <!-- Github link -->
                   <span class="link-block">
                     <a href="https://github.com/Gabriel-Ducrocq/cryoSPHERE" target="_blank"
@@ -222,7 +233,7 @@
               <li>It disregards prior information about the protein: we may already have a good idea of its structure, obtained through previous experiments such as Xray crytallography or using AlphaFold.</li>
               <li>The motion of the protein is restricted by the laws of physics. Using such constraints is difficult for volume methods.</li>
           </ul>
-          To remedy this, we root our method in the observation that different conformations can often be
+          To remedy this, we root cryoSPHERE in the observation that different conformations can often be
           explained by large scale movements of domains of the protein. Specifically, we
           develop a variational auto-encoder (VAE) that, from a nominal structure
           and a set of cryo-EM images:
@@ -232,6 +243,21 @@
           </ul>
             These two steps happen concurrently, and the model is end-to-end differentiable.
           </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End cryoSPHERE motivation -->
+
+
+<!-- cryoSPHERE motivation -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Advantages of cryoSPHERE </h2>
+        <div class="content has-text-justified">
           Formulating the problem this way has a number of advantages:
           <ul>
             <li><div>Efficiency in deformation: Deforming a base structure into a density map avoids the computationally expensive Npix^2 pix evaluation required by a decoder neural network in methods implicitly parameterising the grid. Furthermore, direct deformation of a structure directly avoids the need for subsequent fitting into the recovered density map.</div></li>
@@ -252,6 +278,9 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3"> How does cryoSPHERE works ?</h2>
+        <div style="display: inline-block; vertical-align: middle; width: 100%;">
+        <img src="static/images/VAEFlow3.png" alt="VAEFLOW"/>
+      </div>
         <div class="content has-text-justified">
           <p>
             CryoSPHERE takes the number of segments N used to cut the protein as a hyperparameter. During a forward pass, two steps happen concurrently:
@@ -261,12 +290,6 @@
           </ul>
           Each residue position in the nominal structure is then rotated and translated according to the transformation of each segment, where these transformations are weighted by how much the residue belongs to each segment. This way, the transformation of the protein is locally rigid. The transformed nominal structure is then turned into a volume and projected into an image, that is compared to the true image. Finally, the backward pass is performed.
         </div>
-        <div style="display: inline-block; vertical-align: middle; width: 100%;">
-        <img src="static/images/VAEFlow3.png" alt="VAEFLOW"/>
-          <h2 class="subtitle has-text-centered">
-          Depiction of cryoSPHERE variational auto-encoding architecture.
-        </h2>
-      </div>
       </div>
     </div>
   </div>
@@ -328,12 +351,12 @@
 <!-- Youtube video -->
 <section class="hero is-small is-light">
   <div class="hero-body">
+      <h2 class="subtitle has-text-centered">
+          For visualization purposes, we can also create movies of the motion corresponding to principal components traversal:
+      </h2>
     <div class="container">
       <!-- Paper video. -->
       <div class="columns is-centered has-text-centered">
-        <h2 class="subtitle has-text-centered">
-          For visualization purposes, we can also create movies of the motion corresponding to principal components traveral:
-        </h2>
         <div class="column is-four-fifths">
           
           <div class="publication-video">
